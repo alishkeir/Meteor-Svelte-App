@@ -1,19 +1,18 @@
 <script>
   import { useTracker } from "meteor/rdb:svelte-meteor-data";
   import { Resolutions } from "../api/resolutions";
-
+  import Resolution from "./resolutions/Resolutions.svelte";
   let newRes = "";
 
   //^ Reactive Variable
 
   $: resolutions = useTracker(() => Resolutions.find({}).fetch());
 
-  function handleSubmit(e) {
+  function handleSubmit() {
     console.log(newRes);
     Resolutions.insert({
       title: newRes,
     });
-
     newRes = "";
   }
 </script>
@@ -27,6 +26,6 @@
   </form>
 
   {#each $resolutions as resolution}
-    <h2>{resolution.title}</h2>
+    <Resolution {resolution} />
   {/each}
 </header>
